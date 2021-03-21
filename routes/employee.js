@@ -25,7 +25,7 @@ router.get('/', function (req, res, next) {
             res.render('message', { "message": "Yay! You are currently ABLE to come to the office. Please bring a mask and we will see you soon. ", "hasError": false });
             return;
           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "CP") {
-            res.render('message', { "message": "You are currently UNABLE to come to the office. Please follow all CDC guidelines and take care of yourself. We hope to see you soon!", "hasError": false });
+            res.render('message', { "message": "You are currently UNABLE to come to the office. Please follow all CDC guidelines and take care of yourself. We hope to see you when it is safe!", "hasError": false });
             return;
           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "NTR") {
             res.render('message', { "message": "Please take and submit a COVID-19 test, so we can determine your return eligibility.", "hasError": false });
