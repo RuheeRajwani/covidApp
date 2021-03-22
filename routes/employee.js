@@ -35,7 +35,7 @@ router.get('/', function (req, res, next) {
         }
       })
       .catch(error => {
-        res.render('message', { "message": "System error processing your request, please try again later.", "hasError": true });
+        res.render('message', { "message": "System error processing your request, please try again later.", "employeeStatus": "NA", "hasError": true });
         return;
       })
   } catch (error) {

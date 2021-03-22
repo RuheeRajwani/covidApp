@@ -22,15 +22,17 @@ router.post('/', function (req, res, next) {
         database.addQuestionnairre(qObject)
           .then(result => {
             if (qObject.QUES_RESULTS == "Fail")
-              res.render('message', { "message": "Current Status:  NOT Onsite Eligible", "hasError": false });
+              res.render('message', { "message": "", "employeeStatus": "CP", "hasError": false });
             else
-              res.render('message', { "message": "Current Status:  Onsite Eligible", "hasError": false });
+              res.render('message', { "message": "", "employeeStatus": "OE", "hasError": false });
 
             return;
 
           })
           .catch(error => {
-            res.render('message', { "message": "System error processing your request, please try again later.", "hasError": true });
+            res.render('message', {
+              "message": "System error processing your request, please try again later.", "employeeStatus": "N/A", "hasError": true
+            });
             return;
           })
       })
