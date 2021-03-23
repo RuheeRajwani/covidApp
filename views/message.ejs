@@ -5,21 +5,28 @@
       <div class="row mb-3">
         <% if (employeeStatus==="OE" ) { %>
           <h1 class="display-4">
-            Yay! You are currently <span id="green">ABLE</span> to come to the office. Please bring a mask and we will
-            see you soon.
+            <%=fName %>
+              <%=lName %>, you are currently <span id="green">ABLE</span> to come to the office. Please bring a mask and
+                we will
+                see you soon.
           </h1>
           <% } %>
             <% if (employeeStatus==="CP" ) { %>
               <h1 class="display-4">
-                You are currently <span class="red">UNABLE</span> to come to the office. Please follow all CDC
-                guidelines
-                and take care of yourself. See you when it is safe!
+                <%=fName %>
+                  <%=lName %>, you are currently <span class="red">UNABLE</span> to come to the office. Please follow
+                    all
+                    CDC
+                    guidelines
+                    and take care of yourself. See you when it is safe!
               </h1>
               <% } %>
                 <% if (employeeStatus==="NTR" ) { %>
                   <h1 class="display-4">
-                    Please take and submit a COVID-19 test in order for us to determine your eligiblity to return to
-                    the office.
+                    <%=fName %>
+                      <%=lName %>, please take and submit a COVID-19 test in order for us to determine your eligiblity
+                        to return to
+                        the office.
                   </h1>
                   <% } %>
                     <% if (hasError===true ) { %>
@@ -27,9 +34,6 @@
                         System error processing your request, please try again later.
                       </h1>
                       <% } %>
-                        <h1 class="display-4">
-                          <%= message %>
-                        </h1>
 
 
       </div>

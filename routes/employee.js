@@ -22,13 +22,13 @@ router.get('/', function (req, res, next) {
           return;
         } else {
           if (employee.EMPLOYEE_RETURN_STATUS_CD === "OE") {
-            res.render('message', { "message": " ", "hasError": false, "employeeStatus": employee.EMPLOYEE_RETURN_STATUS_CD });
+            res.render('message', { "message": " ", "hasError": false, "employeeStatus": "OE", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
             return;
           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "CP") {
-            res.render('message', { "message": "", "hasError": false, "employeeStatus": employee.EMPLOYEE_RETURN_STATUS_CD });
+            res.render('message', { "message": "", "hasError": false, "employeeStatus": "CP", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
             return;
           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "NTR") {
-            res.render('message', { "message": "", "hasError": false, "employeeStatus": employee.EMPLOYEE_RETURN_STATUS_CD });
+            res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
             return;
           }
 

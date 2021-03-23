@@ -2,11 +2,17 @@ var express = require('express');
 var router = express.Router();
 var database = require('../database.js');
 let questionnaireValues = ["EMPLOYEE_ID", "VACCINATED", "COVID_CONTACT", "TRAVEL_INTERNATIONAL", "FEVER", "COUGH", "SORE_THROAT", "CHILLS", "MUSCLE_ACHES", "HEADACHE", "TASTE_SMELL_LOSS", "ABDOMINAL_PAIN"];
+let fName = "";
+let lName = "";
+
 
 
 /* GET home page. */
 router.post('/', function (req, res, next) {
   let qObject = { EMPLOYEE_ID: 0, RESULT_DATE: 0, QUES_RESULTS: "Pass", VACCINATED: "FALSE", COVID_CONTACT: "FALSE", TRAVEL_INTERNATIONAL: "FALSE", FEVER: "FALSE", COUGH: "FALSE", SORE_THROAT: "FALSE", CHILLS: "FALSE", MUSCLE_ACHES: "FALSE", HEADACHE: "FALSE", TASTE_SMELL_LOSS: "FALSE", ABDOMINAL_PAIN: "FALSE" };
+  fName = req.body["fName"];
+  lName = req.body["lName"];
+
   for (let value of questionnaireValues) {
     if (req.body[value] !== undefined) {
       qObject[value] = req.body[value];
@@ -22,9 +28,9 @@ router.post('/', function (req, res, next) {
         database.addQuestionnairre(qObject)
           .then(result => {
             if (qObject.QUES_RESULTS == "Fail")
-              res.render('message', { "message": "", "employeeStatus": "CP", "hasError": false });
+              res.render('message', { "fName": fName, "lName": lName, "employeeStatus": "CP", "hasError": false });
             else
-              res.render('message', { "message": "", "employeeStatus": "OE", "hasError": false });
+              res.render('message', { "fName": fName, "lName": lName, "message": "", "employeeStatus": "OE", "hasError": false });
 
             return;
 

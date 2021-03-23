@@ -8,6 +8,8 @@
             </h1>
             <form id="questionForm" method="POST" action="/questionnairre">
                 <input type="hidden" id="custId" name="EMPLOYEE_ID" value=<%=employee.EMPLOYEE_ID %>>
+                <input type="hidden" id="custId" name="fName" value=<%=employee.FIRST_NAME %>>
+                <input type="hidden" id="custId" name="lName" value=<%=employee.LAST_NAME %>>
                 <div class="row mt-3 mb-1 important">
                     <p>Please check the box to indicate "yes" to the following questions</p>
                 </div>
