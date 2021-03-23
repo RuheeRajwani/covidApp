@@ -3,7 +3,8 @@
     <body>
 
         <section class="flex-container mt-3">
-            <h1 class="display-4 mb-3" id="questionHead"> The following questions will help us finalize your eligibility
+            <h1 class="display-4 mb-3" id="questionHead"> Welcome <%=employee.FIRST_NAME %>
+                    <%=employee.LAST_NAME %>. The following questions will help us finalize your eligibility
             </h1>
             <form id="questionForm" method="POST" action="/questionnairre">
                 <input type="hidden" id="custId" name="EMPLOYEE_ID" value=<%=employee.EMPLOYEE_ID %>>
