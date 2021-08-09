@@ -12,6 +12,6 @@ DB_ACCOUNT
 Use the command `npm start` to start the web app server.
 Open localhost:300 in browser
 
-2. Test database
+2. Test database:
 To test the snowfalke database interaction run the following
 `node testSnowflake.js`
