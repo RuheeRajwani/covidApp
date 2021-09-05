@@ -11,7 +11,7 @@ var employeeRouter = require('./routes/employee');
 var questionnairreRouter = require('./routes/questionnairre');
 
 var app = express();
-database.initialize();
+// database.initialize();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
