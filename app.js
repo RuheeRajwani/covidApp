@@ -67,9 +67,9 @@ app.use(function (err, req, res, next) {
 });
 
 
-findEmployee(77);
-findEmployeeQuestionnaires(77);
-findEmployeeTestResults(77);
+// findEmployee(77);
+// findEmployeeQuestionnaires(77);
+// findEmployeeTestResults(77);
 
 const port = 3000;
 app.listen(port, () => {

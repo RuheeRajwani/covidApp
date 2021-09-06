@@ -22,4 +22,9 @@ const findEmployeeTestResults = async function (id) {
     const testResults = await TestResult.find({ employeeId: id });
     console.log(testResults);
 }
+
+const findMostRecentEmployeeTestResult = async function (id) {
+    const testResults = await TestResult.find({ employeeId: id });
+    console.log(testResults);
+}
 module.exports = { TestResult, findEmployeeTestResults };

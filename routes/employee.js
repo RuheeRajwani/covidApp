@@ -1,52 +1,69 @@
-var express = require('express');
-var database = require('../database.js');
-var router = express.Router();
+const express = require('express');
+const database = require('../database.js');
+const router = express.Router();
+const { Employee } = require('../models/employee')
+const { Questionnaire, findMostRecentQuestionnaire } = require('../models/questionnaire')
+const { TestResult, findMostRecentTestResult } = require('../models/testResult')
+
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
+  const employeeId = req.query.employeeId;
+  const employee = await Employee.find({ employeeId: employeeId });
+  if (!employee) {
+    res.render('message', { "message": "NO Employee found for Id: " + employeeId + ". Please try the search again." });
+    return;
+  } else {
+    //calculate return status then present questionanaire accordingly
+    console.log("FOUND EMPLOYEE ", employee)
 
-  let employeeId = req.query.employeeId;
-  let employee = null;
-
-  try {
-    database.getEmployee(employeeId)
-      .then(emp => {
-        if (emp == null) {
-          res.render('message', { "message": "NO Employee found for Id: " + employeeId + ". Please try the search again." });
-          return;
-        }
-        employee = emp;
-        let returnStatus = employee.EMPLOYEE_RETURN_STATUS_CD;
-        if (returnStatus && (returnStatus == "RQ" || returnStatus == "RAQ")) {
-          res.render('questionnairre', { "employee": employee });
-          return;
-        } else {
-          if (employee.EMPLOYEE_RETURN_STATUS_CD === "OE") {
-            res.render('message', { "message": " ", "hasError": false, "employeeStatus": "OE", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
-            return;
-          } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "CP") {
-            res.render('message', { "message": "", "hasError": false, "employeeStatus": "CP", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
-            return;
-          } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "NTR") {
-            res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
-            return;
-          }
-
-        }
-      })
-      .catch(error => {
-        res.render('message', { "message": "System error processing your request, please try again later.", "employeeStatus": "NA", "hasError": true });
-        return;
-      })
-  } catch (error) {
-    console.log(error);
   }
 
-});
-
-
+})
 
 module.exports = router;
+
+
+
+  //   try {
+  //     database.getEmployee(employeeId)
+  //       .then(emp => {
+  //         if (emp == null) {
+  //           res.render('message', { "message": "NO Employee found for Id: " + employeeId + ". Please try the search again." });
+  //           return;
+  //         }
+  //         employee = emp;
+  //         let returnStatus = employee.EMPLOYEE_RETURN_STATUS_CD;
+  //         if (returnStatus && (returnStatus == "RQ" || returnStatus == "RAQ")) {
+  //           res.render('questionnairre', { "employee": employee });
+  //           return;
+  //         } else {
+  //           if (employee.EMPLOYEE_RETURN_STATUS_CD === "OE") {
+  //             res.render('message', { "message": " ", "hasError": false, "employeeStatus": "OE", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
+  //             return;
+  //           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "CP") {
+  //             res.render('message', { "message": "", "hasError": false, "employeeStatus": "CP", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
+  //             return;
+  //           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "NTR") {
+  //             res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
+  //             return;
+  //           }
+
+  //         }
+  //       })
+  //       .catch(error => {
+  //         res.render('message', { "message": "System error processing your request, please try again later.", "employeeStatus": "NA", "hasError": true });
+  //         return;
+  //       })
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+
+  // });
+
+
+
+
 
 
 /*"EMPLOYEE_ID": 1,
