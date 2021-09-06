@@ -66,7 +66,7 @@ const findEmployeeQuestionnaires = async function (id) {
 }
 
 const findMostRecentQuestionnaires = async function (id) {
-    const questionnaires = await Questionnaire.find({ employeeId: id });
-    console.log(questionnaires);
+    const questionnaire = await Questionnaire.find({ employeeId: id }).sort({ "resultDate": -1 }).limit(1);
+    console.log("recent", questionnaire);
 }
-module.exports = { Questionnaire, findEmployeeQuestionnaires };
+module.exports = { Questionnaire, findEmployeeQuestionnaires, findMostRecentQuestionnaires };
