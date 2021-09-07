@@ -34,7 +34,7 @@ router.post('/', async function (req, res, next) {
     res.render('message', { "message": "", "hasError": false, "employeeStatus": "CP", "fName": fName, "lName": lName })
   }
   //need to add date to qObject
-  //qObject.resultDate=
+  qObject.resultDate = new Date();
   await questionnaire.saveQuestionnaire(qObject)
 })
 module.exports = router;

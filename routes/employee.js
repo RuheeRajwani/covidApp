@@ -30,15 +30,16 @@ router.get('/', async function (req, res, next) {
         res.render('questionnairre', { "employee": foundEmployee });
         return;
 
-      } else {
-        res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": foundEmployee.firstName, "lName": foundEmployee.lastName });
-        return;
       }
-
-
+    }
+    else {
+      res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": foundEmployee.firstName, "lName": foundEmployee.lastName });
+      return;
     }
 
+
   }
+
 })
 
 module.exports = router;
