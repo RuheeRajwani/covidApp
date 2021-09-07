@@ -4,9 +4,9 @@ var connectionId = null;
 
 
 var connection = snowflake.createConnection({
-  account: process.env.DB_ACCOUNT,
-  username: process.env.DB_USER_ID,
-  password: process.env.DB_PASSWORD,
+  account: 'dsfkf',
+  username: 'dfshjfk',
+  password: 'dfjkdslfk',
   warehouse: "NEW_YORK_CITY_ANALYZE_WH"
   //database: "WLN_CASE_COMP",
   //schema: "GROUP1"
