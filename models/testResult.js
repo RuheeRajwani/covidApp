@@ -25,7 +25,7 @@ const findEmployeeTestResults = async function (id) {
 
 const findMostRecentEmployeeTestResult = async function (id) {
     const recentTestResult = await TestResult.find({ employeeId: id }).sort({ "testDate": -1 }).limit(1);
-    const result = await recentTestResult.testResult;
+    const result = await recentTestResult[0].testResult;
     console.log("recent", recentTestResult);
     console.log("Just most recent result:", result);
 }
