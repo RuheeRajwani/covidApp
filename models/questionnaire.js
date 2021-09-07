@@ -71,7 +71,7 @@ const findMostRecentEmployeeQuestionnaire = async function (id) {
     if (employeeQuestionnaires.length === 0) {
         return null;
     }
-    const recentQuestionnaire = await model.find({ employeeId: id }).sort({ "testDate": -1 }).limit(1);
+    const recentQuestionnaire = await model.find({ employeeId: id }).sort({ "resultDate": -1 }).limit(1);
     return (recentQuestionnaire[0].questResults);
 }
 const saveQuestionnaire = async function (questionnaire) {
