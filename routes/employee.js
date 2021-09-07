@@ -1,95 +1,46 @@
+const employee = require('../models/employee');
 const express = require('express');
-const database = require('../database.js');
 const router = express.Router();
-const { Employee } = require('../models/employee')
-const { Questionnaire, findMostRecentQuestionnaire } = require('../models/questionnaire')
-const { TestResult, findMostRecentTestResult } = require('../models/testResult')
+const questionnaire = require('../models/questionnaire');
+const testResult = require('../models/testResult');
 
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   const employeeId = req.query.employeeId;
-  const employee = await Employee.find({ employeeId: employeeId });
-  if (!employee) {
+  const foundEmployee = await employee.findEmployee(employeeId);
+  if (!foundEmployee) {
     res.render('message', { "message": "NO Employee found for Id: " + employeeId + ". Please try the search again." });
     return;
   } else {
     //calculate return status then present questionanaire accordingly
-    console.log("FOUND EMPLOYEE ", employee)
+    const mostRecentTestResult = await testResult.findMostRecentEmployeeTestResult(employeeId);
+    const mostRecentQuestionnaire = await questionnaire.findMostRecentEmployeeQuestionnaire(employeeId);
+    console.log(`Most recent test result: ${mostRecentTestResult}. Most recent questionnaire: ${mostRecentQuestionnaire}.`);
+    if (mostRecentTestResult === "Negative") {
+      res.render('message', { "message": " ", "hasError": false, "employeeStatus": "OE", "fName": foundEmployee.firstName, "lName": foundEmployee.lastName });
+      return;
+
+    } else if (mostRecentTestResult === "Positive") {
+      if (mostRecentQuestionnaire === "Pass") {
+        res.render('message', { "message": "", "hasError": false, "employeeStatus": "OE", "fName": foundEmployee.firstName, "lName": foundEmployee.lastName });
+
+
+      } else if (mostRecentQuestionnaire === "Fail" || mostRecentQuestionnaire == null) {
+        res.render('questionnairre', { "employee": foundEmployee });
+        return;
+
+      } else {
+        res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": foundEmployee.firstName, "lName": foundEmployee.lastName });
+        return;
+      }
+
+
+    }
 
   }
-
 })
 
 module.exports = router;
 
 
-
-  //   try {
-  //     database.getEmployee(employeeId)
-  //       .then(emp => {
-  //         if (emp == null) {
-  //           res.render('message', { "message": "NO Employee found for Id: " + employeeId + ". Please try the search again." });
-  //           return;
-  //         }
-  //         employee = emp;
-  //         let returnStatus = employee.EMPLOYEE_RETURN_STATUS_CD;
-  //         if (returnStatus && (returnStatus == "RQ" || returnStatus == "RAQ")) {
-  //           res.render('questionnairre', { "employee": employee });
-  //           return;
-  //         } else {
-  //           if (employee.EMPLOYEE_RETURN_STATUS_CD === "OE") {
-  //             res.render('message', { "message": " ", "hasError": false, "employeeStatus": "OE", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
-  //             return;
-  //           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "CP") {
-  //             res.render('message', { "message": "", "hasError": false, "employeeStatus": "CP", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
-  //             return;
-  //           } else if (employee.EMPLOYEE_RETURN_STATUS_CD === "NTR") {
-  //             res.render('message', { "message": "", "hasError": false, "employeeStatus": "NTR", "fName": employee.FIRST_NAME, "lName": employee.LAST_NAME });
-  //             return;
-  //           }
-
-  //         }
-  //       })
-  //       .catch(error => {
-  //         res.render('message', { "message": "System error processing your request, please try again later.", "employeeStatus": "NA", "hasError": true });
-  //         return;
-  //       })
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // });
-
-
-
-
-
-
-/*"EMPLOYEE_ID": 1,
-    "FIRST_NAME": "Molly",
-    "LAST_NAME": "Gutierrez",
-    "EMPLOYEE_GENDER": "F",
-    "EMPLOYEE_AGE": 33,
-    "MANAGER_ID": 275,
-    "MANAGER_NAME": "Gaddy Tracy",
-    "KEY_POSITION_FLAG": "No",
-    "JOB_TITLE": "Research Associate",
-    "DEPARTMENT": "Biologics",
-    "DIVISION": "R&D",
-    "OFFICE_BUILDING": "NY_2",
-    "FLOOR": 20,
-    "DESK": "Y67",
-    "OFFICE_CITY": "Manhattan",
-    "OFFICE_COUNTY": "New York",
-    "OFFICE_STATE": "NY",
-    "HOME_CITY": "Lime Lake",
-    "HOME_COUNTY": "Cattaraugus",
-    "HOME_STATE": "NY",
-    "COVID_SERVERITY": "5410",
-    "TEST_RESULT": null,
-    "POSITIVE_FLAG": null,
-    "TEST_DATE": null,
-    "QUES_RESULTS": null,
-    "EMPLOYEE_RETURN_STATUS": "No Test Received",
-    "EMPLOYEE_RETURN_STATUS_CD": "NTR"*/

@@ -100,10 +100,10 @@ const employeeSchema = new Schema({
 
 })
 
-const Employee = mongoose.model('employee', employeeSchema);
+const model = mongoose.model('employee', employeeSchema);
 
 const findEmployee = async function (id) {
-    const foundEmployee = await Employee.find({ employeeId: id });
-    console.log(foundEmployee);
+    const foundEmployee = await model.find({ employeeId: id });
+    return foundEmployee[0];
 }
-module.exports = { Employee, findEmployee };
+module.exports = { findEmployee };

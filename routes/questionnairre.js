@@ -1,53 +1,47 @@
-var express = require('express');
-var router = express.Router();
-var database = require('../database.js');
-let questionnaireValues = ["EMPLOYEE_ID", "VACCINATED", "COVID_CONTACT", "TRAVEL_INTERNATIONAL", "FEVER", "COUGH", "SORE_THROAT", "CHILLS", "MUSCLE_ACHES", "HEADACHE", "TASTE_SMELL_LOSS", "ABDOMINAL_PAIN"];
+const express = require('express');
+const router = express.Router();
+const questionnaireValues = ["employeeId", "vaccinated", "covidContact", "travelInternational", "fever", "cough", "soreThroat", "chills", "muscleAches", "headAche", "tasteSmellLoss", "abdominalPain"];
+const questionnaire = require('../models/questionnaire');
 let fName = "";
 let lName = "";
 
 
 
 /* GET home page. */
-router.post('/', function (req, res, next) {
-  let qObject = { EMPLOYEE_ID: 0, RESULT_DATE: 0, QUES_RESULTS: "Pass", VACCINATED: "FALSE", COVID_CONTACT: "FALSE", TRAVEL_INTERNATIONAL: "FALSE", FEVER: "FALSE", COUGH: "FALSE", SORE_THROAT: "FALSE", CHILLS: "FALSE", MUSCLE_ACHES: "FALSE", HEADACHE: "FALSE", TASTE_SMELL_LOSS: "FALSE", ABDOMINAL_PAIN: "FALSE" };
+router.post('/', async function (req, res, next) {
+  let qObject = { employeeId: 0, resultDate: 0, questResults: "Pass", vaccinated: false, covidContact: false, travelInternational: false, fever: false, cough: false, soreThroat: false, chills: false, muscleAches: false, headAche: false, tasteSmellLoss: false, abdominalPain: false };
   fName = req.body["fName"];
   lName = req.body["lName"];
+  console.log("Request body: ", req.body);
 
   for (let value of questionnaireValues) {
     if (req.body[value] !== undefined) {
-      qObject[value] = req.body[value];
-      if (value === ("COVID_CONTACT") || value === ("TRAVEL_INTERNATIONAL") || value === ("FEVER") || value === ("COUGH") || value === ("SORE_THROAT") || value === ("CHILLS") || value === ("MUSCLE_ACHES") || value === ("HEADACHE") || value === ("TASTE_SMELL_LOSS") || value === ("ABDOMINAL_PAIN")) {
-        qObject["QUES_RESULTS"] = "Fail";
+      if (req.body[value] === "TRUE") {
+        if (value === ("covidContact") || value === ("travelInternational") || value === ("fever") || value === ("cough") || value === ("soreThroat") || value === ("chills") || value === ("muscleAches") || value === ("headAche") || value === ("tasteSmellLoss") || value === ("abdominalPain")) {
+          qObject["questResults"] = "Fail";
+        }
+        qObject[value] = true;
+      } else {
+        qObject[value] = req.body[value];
       }
     }
   }
 
-  try {
-    database.deleteTodayQuestionnairre(qObject.EMPLOYEE_ID)
-      .then(result => {
-        database.addQuestionnairre(qObject)
-          .then(result => {
-            if (qObject.QUES_RESULTS == "Fail")
-              res.render('message', { "fName": fName, "lName": lName, "employeeStatus": "CP", "hasError": false });
-            else
-              res.render('message', { "fName": fName, "lName": lName, "message": "", "employeeStatus": "OE", "hasError": false });
+  if (qObject["questResults"] === "Pass") {
+    res.render('message', { "message": "", "hasError": false, "employeeStatus": "OE", "fName": fName, "lName": lName });
 
-            return;
-
-          })
-          .catch(error => {
-            res.render('message', {
-              "message": "System error processing your request, please try again later.", "employeeStatus": "N/A", "hasError": true
-            });
-            return;
-          })
-      })
-  } catch (error) {
-    console.log(error);
+  } else {
+    res.render('message', { "message": "", "hasError": false, "employeeStatus": "CP", "fName": fName, "lName": lName })
   }
-});
-
+  //need to add date to qObject
+  //qObject.resultDate=
+  await questionnaire.saveQuestionnaire(qObject)
+})
 module.exports = router;
+
+
+
+
 
 
 

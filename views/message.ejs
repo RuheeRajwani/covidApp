@@ -1,41 +1,44 @@
 <%- include('header'); -%>
 
   <body>
-    <section class="flex-container" id="homeC">
-      <div class="row mb-3">
-        <% if (employeeStatus==="OE" ) { %>
-          <h1 class="display-4">
-            <%=fName %>
-              <%=lName %>, you are currently <span id="green">ABLE</span> to come to the office. Please bring a mask and
-                we will
-                see you soon.
-          </h1>
-          <% } %>
-            <% if (employeeStatus==="CP" ) { %>
-              <h1 class="display-4">
-                <%=fName %>
-                  <%=lName %>, you are currently <span class="red">UNABLE</span> to come to the office. Please follow
-                    all
-                    CDC
-                    guidelines
-                    and take care of yourself. See you when it is safe!
-              </h1>
-              <% } %>
-                <% if (employeeStatus==="NTR" ) { %>
-                  <h1 class="display-4">
-                    <%=fName %>
-                      <%=lName %>, please take and submit a COVID-19 test in order for us to determine your eligiblity
-                        to return to
-                        the office.
-                  </h1>
-                  <% } %>
-                    <% if (hasError===true ) { %>
-                      <h1 class="display-4 red">
-                        System error processing your request, please try again later.
-                      </h1>
-                      <% } %>
+    <div class="container">
+      <section class="flex-container" id="homeC">
+        <div class="row mb-3 mx-auto">
+          <% if (employeeStatus==="OE" ) { %>
+            <h1 class="display-4">
+              <%=fName %>
+                <%=lName %>, you are currently <span id="green">ABLE</span> to come to the office. Please bring a mask
+                  and
+                  we will
+                  see you soon.
+            </h1>
+            <% } %>
+              <% if (employeeStatus==="CP" ) { %>
+                <h1 class="display-4">
+                  <%=fName %>
+                    <%=lName %>, you are currently <span class="red">UNABLE</span> to come to the office. Please follow
+                      all
+                      CDC
+                      guidelines
+                      and take care of yourself. See you when it is safe!
+                </h1>
+                <% } %>
+                  <% if (employeeStatus==="NTR" ) { %>
+                    <h1 class="display-4">
+                      <%=fName %>
+                        <%=lName %>, please take and submit a COVID-19 test in order for us to determine your eligiblity
+                          to return to
+                          the office.
+                    </h1>
+                    <% } %>
+                      <% if (hasError===true ) { %>
+                        <h1 class="display-4 red">
+                          System error processing your request, please try again later.
+                        </h1>
+                        <% } %>
 
 
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
     <%- include('footer'); -%>

@@ -1,86 +1,90 @@
 <%- include('header'); -%>
 
     <body>
-
-        <section class="flex-container mt-3">
-            <h1 class="display-4 mb-3" id="questionHead"> Welcome <%=employee.FIRST_NAME %>
-                    <%=employee.LAST_NAME %>. The following questions will help us finalize your eligibility
-            </h1>
-            <form id="questionForm" method="POST" action="/questionnairre">
-                <input type="hidden" id="custId" name="EMPLOYEE_ID" value=<%=employee.EMPLOYEE_ID %>>
-                <input type="hidden" id="custId" name="fName" value=<%=employee.FIRST_NAME %>>
-                <input type="hidden" id="custId" name="lName" value=<%=employee.LAST_NAME %>>
-                <div class="row mt-3 mb-1 important">
-                    <p>Please check the box to indicate "yes" to the following questions</p>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-check">
-                        <input type="checkbox" name="VACCINATED" class="form-check-input" id="vaccinated" value="TRUE">
-                        <label class="form-check-label" for="vaccinated">Are you fully vaccinated?</label>
+        <div class="container">
+            <section class="flex-container mt-3">
+                <h2 class=" mb-3" id="questionHead"> Welcome <%=employee.firstName %>
+                        <%=employee.lastName %>. The following questions will help us finalize your eligibility
+                </h2>
+                <form id="questionForm" class="mb-3" method="POST" action="/questionnairre">
+                    <input type="hidden" id="custId" name="employeeId" value=<%=employee.employeeId %>>
+                    <input type="hidden" id="custId" name="fName" value=<%=employee.firstName %>>
+                    <input type="hidden" id="custId" name="lName" value=<%=employee.lastName %>>
+                    <div class="row mt-3 mb-1 important">
+                        <p>Please check the box to indicate "yes" to the following questions</p>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-check">
-                        <input type="checkbox" name="COVID_CONTACT" class="form-check-input" id="covidContact"
-                            value="TRUE">
-                        <label class="form-check-label" for="covidContact">Have you been in contact with anyone who has
-                            tested
-                            postive for COVID 19 in the
-                            last 14 days?</label>
+                    <div class="row mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" name="vaccinated" class="form-check-input" id="vaccinated"
+                                value="TRUE">
+                            <label class="form-check-label" for="vaccinated">Are you fully vaccinated?</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-check">
-                        <input type="checkbox" name="TRAVEL_INTERNATIONAL" class="form-check-input"
-                            id="internationalTravel" value="TRUE">
-                        <label class="form-check-label" for="internationalTravel">Have you been outside of the country
-                            in
-                            the
-                            last
-                            14 days?</label>
+                    <div class="row mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" name="covidContact" class="form-check-input" id="covidContact"
+                                value="TRUE">
+                            <label class="form-check-label" for="covidContact">Have you been in contact with anyone who
+                                has
+                                tested
+                                postive for COVID-19 in the
+                                last 14 days?</label>
+                        </div>
                     </div>
-                </div>
+                    <div class="row mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" name="travelInternational" class="form-check-input"
+                                id="internationalTravel" value="TRUE">
+                            <label class="form-check-label" for="internationalTravel">Have you been outside of the
+                                country
+                                in
+                                the
+                                last
+                                14 days?</label>
+                        </div>
+                    </div>
 
-                <div class="row mt-3 mb-1 important">
-                    <p>Have you experienced any of the following symptoms...</p>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="FEVER" class="form-check-input" id="fever" value="TRUE">
-                    <label class="form-check-label" for="fever">Fever (>100.2)</label>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="COUGH" class="form-check-input" id="cough" value="TRUE">
-                    <label class="form-check-label" for="cough">Cough or shortness of breath</label>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="SORE_THROAT" class="form-check-input" id="soreT" value="TRUE">
-                    <label class="form-check-label" for="soreT">Sore Throat</label>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="CHILLS" class="form-check-input" id="chills" value="TRUE">
-                    <label class="form-check-label" for="chills">Chills</label>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="MUSCLE_ACHES" class="form-check-input" id="musAche" value="TRUE">
-                    <label class="form-check-label" for="musAche">Muscle Aches</label>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="HEADACHE" class="form-check-input" id="head" value="TRUE">
-                    <label class="form-check-label" for="head">Headache</label>
-                </div>
-                <div class=" form-check">
-                    <input type="checkbox" name="TASTE_SMELL_LOSS" class="form-check-input" id="lossTS" value="TRUE">
-                    <label class="form-check-label" for="lossTS">New loss of taste or smell</label>
-                </div>
-                <div class=" mb-3 form-check">
-                    <input type="checkbox" name="ABDOMINAL_PAIN" class="form-check-input" id="abdomP" value="TRUE">
-                    <label class="form-check-label" for="abdomP">Abdominal pain, nasuea, or diarrhea </label>
-                </div>
+                    <div class="row mt-3 mb-1 important">
+                        <p>Have you experienced any of the following symptoms...</p>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="fever" class="form-check-input" id="fever" value="TRUE">
+                        <label class="form-check-label" for="fever">Fever (>100.2)</label>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="cough" class="form-check-input" id="cough" value="TRUE">
+                        <label class="form-check-label" for="cough">Cough or shortness of breath</label>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="soreThroat" class="form-check-input" id="soreT" value="TRUE">
+                        <label class="form-check-label" for="soreT">Sore Throat</label>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="chills" class="form-check-input" id="chills" value="TRUE">
+                        <label class="form-check-label" for="chills">Chills</label>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="muscleAches" class="form-check-input" id="musAche" value="TRUE">
+                        <label class="form-check-label" for="musAche">Muscle Aches</label>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="headAche" class="form-check-input" id="head" value="TRUE">
+                        <label class="form-check-label" for="head">Headache</label>
+                    </div>
+                    <div class=" form-check">
+                        <input type="checkbox" name="tasteSmellLoss" class="form-check-input" id="lossTS" value="TRUE">
+                        <label class="form-check-label" for="lossTS">New loss of taste or smell</label>
+                    </div>
+                    <div class=" mb-3 form-check">
+                        <input type="checkbox" name="abdominalPain" class="form-check-input" id="abdomP" value="TRUE">
+                        <label class="form-check-label" for="abdomP">Abdominal pain, nasuea, or diarrhea </label>
+                    </div>
 
 
-                <button type="submit" id="submitQuestion" class="btn btn-primary submit">Submit</button>
-            </form>
-        </section>
+                    <button type="submit" id="submitQuestion" class="btn btn-primary submit">Submit</button>
+                </form>
+            </section>
+        </div>
     </body>
     </head>
 

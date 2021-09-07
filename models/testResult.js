@@ -16,17 +16,21 @@ const testResultSchema = new Schema({
         enum: ['Positive', 'Negative']
     }
 })
-const TestResult = mongoose.model("testResult", testResultSchema);
+const model = mongoose.model("testResult", testResultSchema);
 
 const findEmployeeTestResults = async function (id) {
-    const testResults = await TestResult.find({ employeeId: id });
-    console.log(testResults);
+    const testResults = await model.find({ employeeId: id });
+    return (testResults);
 }
 
 const findMostRecentEmployeeTestResult = async function (id) {
-    const recentTestResult = await TestResult.find({ employeeId: id }).sort({ "testDate": -1 }).limit(1);
-    const result = await recentTestResult[0].testResult;
-    console.log("recent", recentTestResult);
-    console.log("Just most recent result:", result);
+    const testResults = await findEmployeeTestResults(id);
+
+    if (testResults.length === 0) {
+        return null;
+    }
+    const recentTestResult = await model.find({ employeeId: id }).sort({ "testDate": -1 }).limit(1);
+    return (recentTestResult[0].testResult);
 }
-module.exports = { TestResult, findEmployeeTestResults, findMostRecentEmployeeTestResult };
+
+module.exports = { model, findEmployeeTestResults, findMostRecentEmployeeTestResult };

@@ -7,7 +7,7 @@ const questionnaireSchema = new Schema({
     },
     resultDate: {
         type: Date,
-        required: true,
+        // required: true,
     },
     questResults: {
         type: String,
@@ -58,15 +58,27 @@ const questionnaireSchema = new Schema({
 
 })
 
-const Questionnaire = mongoose.model('questionnaire', questionnaireSchema);
+const model = mongoose.model('questionnaire', questionnaireSchema);
 
-const findEmployeeQuestionnaires = async function (id) {
-    const questionnaires = await Questionnaire.find({ employeeId: id });
-    console.log(questionnaires);
+
+const findEmployeeQuestionnaire = async function (id) {
+    const questionnaires = await model.find({ employeeId: id });
+    return (questionnaires);
 }
 
-const findMostRecentQuestionnaires = async function (id) {
-    const questionnaire = await Questionnaire.find({ employeeId: id }).sort({ "resultDate": -1 }).limit(1);
-    console.log("recent", questionnaire);
+const findMostRecentEmployeeQuestionnaire = async function (id) {
+    const employeeQuestionnaires = await findEmployeeQuestionnaire(id);
+    if (employeeQuestionnaires.length === 0) {
+        return null;
+    }
+    const recentQuestionnaire = await model.find({ employeeId: id }).sort({ "testDate": -1 }).limit(1);
+    return (recentQuestionnaire[0].questResults);
 }
-module.exports = { Questionnaire, findEmployeeQuestionnaires, findMostRecentQuestionnaires };
+const saveQuestionnaire = async function (questionnaire) {
+    const q = new model(questionnaire);
+    const saved = await q.save();
+    console.log("SAVED!", saved)
+
+}
+
+module.exports = { model, findMostRecentEmployeeQuestionnaire, saveQuestionnaire };

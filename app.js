@@ -8,9 +8,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const employeeRouter = require('./routes/employee');
 const questionnairreRouter = require('./routes/questionnairre');
-const { findEmployeeQuestionnaires, findMostRecentQuestionnaires } = require('./models/questionnaire')
-const { findEmployee } = require('./models/employee')
-const { findEmployeeTestResults, findMostRecentEmployeeTestResult } = require('./models/testResult')
+const employee = require('./models/employee');
+const questionnaire = require('./models/questionnaire');
+const testResult = require('./models/testResult');
+
 
 require('dotenv').config();
 
@@ -53,6 +54,7 @@ app.use('/questionnairre', questionnairreRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+testResult.findMostRecentEmployeeTestResult('5')
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -66,11 +68,9 @@ app.use(function (err, req, res, next) {
 });
 
 
-// findEmployee(81);
-// findEmployeeQuestionnaires(81);
-findEmployeeTestResults(81);
-// findMostRecentQuestionnaires(81);
-findMostRecentEmployeeTestResult(81);
+
+
+
 
 const port = 3000;
 app.listen(port, () => {
