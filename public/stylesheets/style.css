@@ -79,3 +79,15 @@ img{
 .red{
   color:red;
 }
+
+@media (max-width:845px){
+  #headerImage{ 
+    margin-left:30%;
+      }
+}
+
+@media (max-width:600px){
+  #headerImage{ 
+    margin-left:20%;
+      }
+}
