@@ -83,11 +83,19 @@ img{
 @media (max-width:845px){
   #headerImage{ 
     margin-left:30%;
+    margin-right:30%;
+
       }
 }
 
 @media (max-width:600px){
   #headerImage{ 
     margin-left:20%;
+    margin-left:20%;
       }
+      #homeC{
+        margin-left:20%;
+        margin-right:20%;
+      }
+    
 }
