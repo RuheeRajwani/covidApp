@@ -4,15 +4,18 @@
   <body>
     <section class="flex-container" id="homeC">
       <div class="row mb-3">
-        <h1 class="display-4 mx-auto">We are so ready to have you back in the office!</h1>
+        <h1 class="display-4 ">We are so ready to have you back in the office!</h1>
       </div>
       <div class="row">
-        <h6>Please enter your employee ID to check your status</h6>
+        <h6>Please enter your employee id to check your status</h6>
+      </div>
+      <div class="row">
+        <small class="mb-2"> Employee id must be between 1 and 1500</small>
       </div>
       <div class="row">
         <form method="GET" action="/employee">
           <div class="row mb-3">
-            <input type="text" class="form-control" id="idNum" name="employeeId" required>
+            <input type="number" class="form-control" id="idNum" min=1 max=15000 name="employeeId" required>
           </div>
       </div>
       <div class="row">
