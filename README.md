@@ -8,6 +8,6 @@ DB_URL
 
 1. Start webserver:
 Use the command `npm start` to start the web app server.
-Open localhost:300 in browser
+Open localhost:3001 in browser
 
 
